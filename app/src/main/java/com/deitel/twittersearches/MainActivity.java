@@ -46,20 +46,23 @@ public class MainActivity extends ListActivity
       // get references to the EditTexts  
       queryEditText = (EditText) findViewById(R.id.queryEditText);
       tagEditText = (EditText) findViewById(R.id.tagEditText);
-      
-      // get the SharedPreferences containing the user's saved searches 
-      savedSearches = getSharedPreferences(SEARCHES, MODE_PRIVATE); 
+
+      /* SharedPreferences类用于保存用户常用配置
+        getSharedPreferences()第一个参数为xml文件名称，不带后缀第二个参数指定文件的操作模式
+       */
+      // get the SharedPreferences containing the user's saved searches
+      savedSearches = getSharedPreferences(SEARCHES, MODE_PRIVATE);
 
       // store the saved tags in an ArrayList then sort them
       tags = new ArrayList<String>(savedSearches.getAll().keySet());
-      Collections.sort(tags, String.CASE_INSENSITIVE_ORDER); 
-      
+      Collections.sort(tags, String.CASE_INSENSITIVE_ORDER);
+
       // create ArrayAdapter and use it to bind tags to the ListView
       adapter = new ArrayAdapter<String>(this, R.layout.list_item, tags);
       setListAdapter(adapter);
-      
-      // register listener to save a new or edited search 
-      ImageButton saveButton = 
+
+      // register listener to save a new or edited search
+      ImageButton saveButton =
          (ImageButton) findViewById(R.id.saveButton);
       saveButton.setOnClickListener(saveButtonListener);
 
@@ -80,7 +83,13 @@ public class MainActivity extends ListActivity
          if (queryEditText.getText().length() > 0 &&
             tagEditText.getText().length() > 0)
          {
-            addTaggedSearch(queryEditText.getText().toString(), 
+
+            // avoid duplicated http://
+             String refactorURL = queryEditText.getText().toString();
+             if(refactorURL.contains("http://"))
+                 refactorURL = refactorURL.replace("http://","");
+            addTaggedSearch(refactorURL,
+
                tagEditText.getText().toString());
             queryEditText.setText(""); // clear queryEditText
             tagEditText.setText(""); // clear tagEditText
@@ -134,12 +143,12 @@ public class MainActivity extends ListActivity
       {
          // get query string and create a URL representing the search
          String tag = ((TextView) view).getText().toString();
-         String urlString = getString(R.string.searchURL) +
-            Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
+         String urlString = getString(R.string.http)
+                 + Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
          
          // create an Intent to launch a web browser    
          Intent webIntent = new Intent(Intent.ACTION_VIEW, 
-            Uri.parse(urlString));                      
+            Uri.parse(urlString));
 
          startActivity(webIntent); // launches web browser to view results
       } 
@@ -214,7 +223,7 @@ public class MainActivity extends ListActivity
    private void shareSearch(String tag)
    {
       // create the URL representing the search
-      String urlString = getString(R.string.searchURL) +
+      String urlString = getString(R.string.http) +
          Uri.encode(savedSearches.getString(tag, ""), "UTF-8");
 
       // create Intent to share urlString

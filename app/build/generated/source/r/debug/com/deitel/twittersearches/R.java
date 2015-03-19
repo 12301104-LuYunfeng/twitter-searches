@@ -40,16 +40,16 @@ public final class R {
         public static final int cancel=0x7f060002;
         public static final int confirmMessage=0x7f060003;
         public static final int delete=0x7f060004;
-        public static final int missingMessage=0x7f060005;
-        public static final int queryPrompt=0x7f060006;
+        public static final int http=0x7f060005;
+        public static final int missingMessage=0x7f060006;
         public static final int saveDescription=0x7f060007;
-        public static final int searchURL=0x7f060008;
-        public static final int shareEditDeleteTitle=0x7f060009;
-        public static final int shareMessage=0x7f06000a;
-        public static final int shareSearch=0x7f06000b;
-        public static final int shareSubject=0x7f06000c;
-        public static final int tagPrompt=0x7f06000d;
-        public static final int taggedSearches=0x7f06000e;
+        public static final int shareEditDeleteTitle=0x7f060008;
+        public static final int shareMessage=0x7f060009;
+        public static final int shareSearch=0x7f06000a;
+        public static final int shareSubject=0x7f06000b;
+        public static final int tagPrompt=0x7f06000c;
+        public static final int taggedSearches=0x7f06000d;
+        public static final int urlPrompt=0x7f06000e;
     }
     public static final class style {
         /** 
